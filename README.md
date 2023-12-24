@@ -37,5 +37,6 @@ into your "`mods`" folder:
 * [CharmedBayron](https://github.com/CharmedBaryon/CommonLibSSE-NG),
 [Ryan McKenzie](https://github.com/Ryan-rsm-McKenzie) and
 [powerof3](https://github.com/powerof3) for CommonlibSSE-NG.
+* [Mrowr Purr](https://github.com/SkyrimScripting) for his guide videos.
 * [Monitor144hz](https://github.com/Monitor144hz) for his CommonlibSSE project template.
-* [Ersh](https://github.com/ersh1) for Precision API and projectile hook ID's
+* [Ersh](https://github.com/ersh1) for Precision API and projectile hook ID's.
