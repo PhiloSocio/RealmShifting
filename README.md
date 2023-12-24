@@ -1,13 +1,20 @@
-# CommonLibSSE NG
+# Realm Shifting
+
+* Well timed dodges opens the door of nine realms. 
+* Works both of incoming projectiles and melee attacks.
+* Compatible with 1.5.97 - 1.6.640 game versions.
+
+## Requirements
+
+* CommonLibSSE NG
 
 Because this uses [CommonLibSSE NG](https://github.com/CharmedBaryon/CommonLibSSE-NG), it supports Skyrim SE, AE, GOG, and VR. 
 
 Hook IDs and offsets must still be found manually for each version.
 
-# Requirements
 
-- [Visual Studio 2022](https://visualstudio.microsoft.com/) (_the free Community edition_)
-- [`vcpkg`](https://github.com/microsoft/vcpkg)
+* [Visual Studio 2022](https://visualstudio.microsoft.com/) (_the free Community edition_)
+* [`vcpkg`](https://github.com/microsoft/vcpkg)
   - 1. Clone the repository using git OR [download it as a .zip](https://github.com/microsoft/vcpkg/archive/refs/heads/master.zip)
   - 2. Go into the `vcpkg` folder and double-click on `bootstrap-vcpkg.bat`
   - 3. Edit your system or user Environment Variables and add a new one:
@@ -15,7 +22,7 @@ Hook IDs and offsets must still be found manually for each version.
       Value: `C:\path\to\wherever\your\vcpkg\folder\is`
   - The latest version of vcpkg needs a default repository defined in the json. If you're using an older version of vcpkg, simply delete the default repository definition in `vcpkg-configuration.json`
 
-# Project setup
+## Project setup
 
 By default, when this project compiles it will output a `.dll` for your SKSE plugin into the `build/` folder.
 
@@ -33,7 +40,7 @@ into your "`mods`" folder:
   e.g. `C:\Users\<user>\AppData\Local\ModOrganizer\Skyrim Special Edition\mods`  
   e.g. `C:\Users\<user>\AppData\Roaming\Vortex\skyrimse\mods`
 
-# Credits
+## Credits
 * [CharmedBayron](https://github.com/CharmedBaryon/CommonLibSSE-NG),
 [Ryan McKenzie](https://github.com/Ryan-rsm-McKenzie) and
 [powerof3](https://github.com/powerof3) for CommonlibSSE-NG.
