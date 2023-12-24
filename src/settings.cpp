@@ -82,8 +82,8 @@ void Config::GetObjectsFromData()
 	auto dataHandler = RE::TESDataHandler::GetSingleton();
 	TimingDodge::RingOf9Realms 	= dataHandler->LookupForm<RE::TESObjectARMO>(0x802, RealmShiftingESP);
 	TimingDodge::RShiftingPerk 	= dataHandler->LookupForm<RE::BGSPerk>		(0x803, RealmShiftingESP);
-	TimingDodge::RShiftingSpell = dataHandler->LookupForm<RE::SpellItem>	(0x800, RealmShiftingESP);
-//	TimingDodge::RShiftingSpell = dataHandler->LookupForm<RE::SpellItem>	(0x800, MagicModESP);
+//	TimingDodge::RShiftingSpell = dataHandler->LookupForm<RE::SpellItem>	(0x800, RealmShiftingESP);
+	TimingDodge::RShiftingSpell = dataHandler->LookupForm<RE::SpellItem>	(0x800, MagicModESP);
 
 	if (TimingDodge::RingOf9Realms)		spdlog::info("Ring of Nine Realms is {}", 	TimingDodge::RingOf9Realms->GetName());
 	else {	spdlog::warn("Can't find the Ring of Nine Realms");}
