@@ -287,8 +287,8 @@ namespace MathUtil
     struct Algebra
     {
         [[nodiscard]] static inline float generateRandomFloat(float lower, float upper) {
-            std::default_random_engine generator;
-            std::uniform_real_distribution<float> distribution(lower, upper);
+            static std::default_random_engine generator;
+            static std::uniform_real_distribution<float> distribution(lower, upper);
             float randomValue = distribution(generator);
                 return randomValue;
         }
