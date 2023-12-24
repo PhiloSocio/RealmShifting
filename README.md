@@ -1,4 +1,3 @@
-
 # CommonLibSSE NG
 
 Because this uses [CommonLibSSE NG](https://github.com/CharmedBaryon/CommonLibSSE-NG), it supports Skyrim SE, AE, GOG, and VR. 
@@ -15,15 +14,6 @@ Hook IDs and offsets must still be found manually for each version.
     - Name: `VCPKG_ROOT`  
       Value: `C:\path\to\wherever\your\vcpkg\folder\is`
   - The latest version of vcpkg needs a default repository defined in the json. If you're using an older version of vcpkg, simply delete the default repository definition in `vcpkg-configuration.json`
-
-## Opening the project
-
-Once you have Visual Studio 2022 installed, you can open this folder in basically any C++ editor, e.g. [VS Code](https://code.visualstudio.com/) or [CLion](https://www.jetbrains.com/clion/) or [Visual Studio](https://visualstudio.microsoft.com/)
-- > _for VS Code, if you are not automatically prompted to install the [C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) and [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools) extensions, please install those and then close VS Code and then open this project as a folder in VS Code_
-
-You may need to click `OK` on a few windows, but the project should automatically run CMake!
-
-It will _automatically_ download [CommonLibSSE NG](https://github.com/CharmedBaryon/CommonLibSSE-NG) and everything you need to get started making your new plugin!
 
 # Project setup
 
@@ -43,4 +33,8 @@ into your "`mods`" folder:
   e.g. `C:\Users\<user>\AppData\Local\ModOrganizer\Skyrim Special Edition\mods`  
   e.g. `C:\Users\<user>\AppData\Roaming\Vortex\skyrimse\mods`
 
-
+# Credits
+https://github.com/Ryan-rsm-McKenzie for CommonlibSSE.
+https://github.com/powerof3 for CommonlibSSE-NG.
+https://github.com/Monitor144hz for his CommonlibSSE project template.
+https://github.com/ersh1 for Precision API and projectile hook ID's
