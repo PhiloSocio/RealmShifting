@@ -34,7 +34,8 @@ into your "`mods`" folder:
   e.g. `C:\Users\<user>\AppData\Roaming\Vortex\skyrimse\mods`
 
 # Credits
-https://github.com/Ryan-rsm-McKenzie for CommonlibSSE.
-https://github.com/powerof3 for CommonlibSSE-NG.
-https://github.com/Monitor144hz for his CommonlibSSE project template.
-https://github.com/ersh1 for Precision API and projectile hook ID's
+* [CharmedBayron](https://github.com/CharmedBaryon/CommonLibSSE-NG),
+[Ryan McKenzie](https://github.com/Ryan-rsm-McKenzie) and
+[powerof3](https://github.com/powerof3) for CommonlibSSE-NG.
+* [Monitor144hz](https://github.com/Monitor144hz) for his CommonlibSSE project template.
+* [Ersh](https://github.com/ersh1) for Precision API and projectile hook ID's
