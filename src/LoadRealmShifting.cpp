@@ -34,7 +34,7 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_msg)
 	case SKSE::MessagingInterface::kDataLoaded:
 	//	Config::CheckEIDs();
 		Config::CheckConfig();
-        Config::GetObjectsFromData();
+		Config::GetObjectsFromData();
 		if (!TimingDodge::RShiftingPerk || !TimingDodge::RingOf9Realms) {spdlog::error("Can't find the Ring and Perk, RealmShifting installation stopped"); return;}
 		ProjectileHook::Hook();
 		break;
