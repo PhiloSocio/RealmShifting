@@ -32,10 +32,8 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_msg)
 {
 	switch (a_msg->type) {
 	case SKSE::MessagingInterface::kDataLoaded:
-	//	Config::CheckEIDs();
 		Config::CheckConfig();
-		Config::GetObjectsFromData();
-		if (!TimingDodge::RShiftingPerk || !TimingDodge::RingOf9Realms) {spdlog::error("Can't find the Ring and Perk, RealmShifting installation stopped"); return;}
+		if (!Config::GetObjectsFromData()) {spdlog::error("RealmShifting installation stopped"); return;}
 		ProjectileHook::Hook();
 		break;
 	case SKSE::MessagingInterface::kPostLoad:
@@ -44,10 +42,9 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_msg)
 	case SKSE::MessagingInterface::kPreLoadGame:
 		break;
 	case SKSE::MessagingInterface::kPostLoadGame:
+	case SKSE::MessagingInterface::kNewGame:
 		TimingDodge::GetSingleton()->Register();
 	//	TimingDodge::GetSingleton()->CheckStates();
-        break;
-	case SKSE::MessagingInterface::kNewGame:
 		break;
 	}
 }
@@ -70,9 +67,9 @@ SKSEPluginLoad(const SKSE::LoadInterface *skse) {
 
     return true;
 }
-/*
+/**/
 SKSEPluginInfo(
-    .Version = REL::Version{ 0, 0, 1, 0 },
+    .Version = REL::Version{ 1, 1, 1, 0 },
     .Name = "RealmShifting"sv,
     .Author = "AnArchos"sv,
     .SupportEmail = "patreon.com/AnArchos"sv,
@@ -80,4 +77,4 @@ SKSEPluginInfo(
     .RuntimeCompatibility = SKSE::VersionIndependence::AddressLibrary,
     .MinimumSKSEVersion = REL::Version{ 2, 0, 0, 2 }
 )
-*/
+

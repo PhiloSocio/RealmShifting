@@ -83,16 +83,28 @@ void TimingDodge::PostHit(const PRECISION_API::PrecisionHitData& a_PrecHitData, 
 void TimingDodge::TimingDodgeBuff(const bool a_isPerfectDodge, const bool a_useThread)
 {
 	auto AnArchos = RE::PlayerCharacter::GetSingleton();
-    if (!AnArchos->HasPerk(TimingDodge::RShiftingPerk))
+    if (!AnArchos->HasPerk(RShiftingPerk))
 		{ spdlog::info("is a timing dodge but you are not have Realm Shifting skill"); return; }
-    if (TimingDodge::RShiftEffect && AnArchos->AsMagicTarget()->HasMagicEffect(TimingDodge::RShiftEffect))
+    if (RShiftEffect && AnArchos->AsMagicTarget()->HasMagicEffect(RShiftEffect))
 		{ spdlog::info("is a timing dodge but you already in buff effect"); return; }
 	if (a_isPerfectDodge) 
 			spdlog::info("is a perfect dodge!!");
 	else	spdlog::info("is a timing dodge!");
 
-	static auto& RShiftEffect	= TimingDodge::RShiftingSpell->effects[0]->effectItem;
-	static auto& durationRef 	= RShiftEffect.duration;
+	static auto& RShiftEffItem = RShiftingSpell->effects[0]->effectItem;
+	const auto buffFlags = RShiftEffect->data.flags;
+	if (buffFlags & RE::EffectSetting::EffectSettingData::Flag::kNoDuration) {
+		auto rate = RShiftEffItem.magnitude;
+		if (a_isPerfectDodge) {
+			rate *= 1.5f;
+			AnArchos->GetMagicCaster(RE::MagicSystem::CastingSource::kInstant)->CastSpellImmediate(RShiftingSpell, false, AnArchos, 1.f, false, rate, AnArchos);
+			return;
+		} else {
+			AnArchos->GetMagicCaster(RE::MagicSystem::CastingSource::kInstant)->CastSpellImmediate(RShiftingSpell, false, AnArchos, 1.f, false, rate, AnArchos);
+		}
+	}
+
+	static auto& durationRef 	= RShiftEffItem.duration;
 	const auto defDuration 		= durationRef;
 	durationRef					= Config::timeSlowDuration;
 
@@ -105,8 +117,7 @@ void TimingDodge::TimingDodgeBuff(const bool a_isPerfectDodge, const bool a_useT
 			AnArchos->GetMagicCaster(RE::MagicSystem::CastingSource::kInstant)->CastSpellImmediate(RShiftingSpell, false, AnArchos, 1.f, false, rate, AnArchos);
 			//	other buffs
 			return;
-		}
-		else {
+		} else {
 		//	ManipulateUtil::Time::setTimeMult(Config::timeSlowRate, Config::timeSlowDuration);
 			AnArchos->GetMagicCaster(RE::MagicSystem::CastingSource::kInstant)->CastSpellImmediate(RShiftingSpell, false, AnArchos, 1.f, false, rate, AnArchos);
 			//	other buffs
@@ -123,8 +134,7 @@ void TimingDodge::TimingDodgeBuff(const bool a_isPerfectDodge, const bool a_useT
 			AnArchos->GetMagicCaster(RE::MagicSystem::CastingSource::kInstant)->CastSpellImmediate(RShiftingSpell, false, AnArchos, 1.f, false, rate, AnArchos);
 			//	other buffs
 			return;
-		}
-		else {
+		} else {
 		//	ManipulateUtil::Time::setTimeMult(Config::timeSlowRate, Config::timeSlowDuration);
 			AnArchos->GetMagicCaster(RE::MagicSystem::CastingSource::kInstant)->CastSpellImmediate(RShiftingSpell, false, AnArchos, 1.f, false, rate, AnArchos);
 			//	other buffs
@@ -137,6 +147,7 @@ void TimingDodge::TimingDodgeBuff(const bool a_isPerfectDodge, const bool a_useT
 void TimingDodge::Register()
 {
 	auto playerCharacter = PlayerCharacter::GetSingleton();
+	if (!playerCharacter) {spdlog::info("Failed to register {}, because the player is not loaded yet", typeid(BSAnimationGraphEvent).name()); return;}
 	bool bSuccess = playerCharacter->AddAnimationGraphEventSink(TimingDodge::GetSingleton());
 	if (bSuccess) {
 		spdlog::info("Registered {}", typeid(BSAnimationGraphEvent).name());

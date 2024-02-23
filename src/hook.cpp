@@ -21,7 +21,7 @@ inline void _ResetDodgeState(TimingDodge::DodgeType a_CurDodgeType, TimingDodge:
 
 void ProjectileHook::directionCheck(const RE::Projectile* a_this)
 {
-	auto projID = a_this->GetFormID();
+	const auto projID = a_this->GetFormID();
 	if (lastProjID && projID == lastProjID && projPassed)	{ spdlog::debug("proj passed and going..."); return; }
 	lastProjID = projID;
 	projPassed = false;
@@ -37,27 +37,35 @@ void ProjectileHook::directionCheck(const RE::Projectile* a_this)
 	if (AnArchos->IsInRagdollState())
 		return; //{ spdlog::debug("projectile coming but you are in ragdoll state"); return; }
 
-	auto& runtimeData = a_this->GetProjectileRuntimeData();
-	auto& shooter = runtimeData.shooter;
-	auto& desiredTarget = runtimeData.desiredTarget;
+	const auto& runtimeData = a_this->GetProjectileRuntimeData();
+	const auto& shooter = runtimeData.shooter;
+//	const auto& desiredTarget = runtimeData.desiredTarget;
 
-	if (shooter.native_handle() != 0x100000 
-	&& (shooter.get().get()->As<RE::Actor>()->IsHostileToActor(AnArchos) || desiredTarget.native_handle() == 0x100000)) // except player and friends, 0x100000 = player
+	RE::Actor *shooterActor = nullptr;
+	if (auto shooterRef = shooter.get().get()) shooterActor = shooterRef->As<RE::Actor>();
+	if (shooterActor && !shooterActor->IsHostileToActor(AnArchos)) return;
+	if (shooter.native_handle() != 0x100000)
 	{
-		float livingTime = runtimeData.livingTime;
+		const float livingTime = runtimeData.livingTime;
 		if (livingTime > 36.f) return;
 
-		auto velocity = runtimeData.linearVelocity;
-		float speed = velocity.Length();
+		const auto velocity = runtimeData.linearVelocity;
+		const float speed = velocity.Length();
 		if (speed < Config::minComingSpeed) return;
 
-		auto& projPos = a_this->data.location;
-		auto playerBone = AnArchos->GetNodeByName("NPC Neck [Neck]");	// alt: NPC Pelvis [Pelv] , NPC Spine [Spn0] , NPC Spine1 [Spn1] , NPC Spine2 [Spn2]
-		auto playerPos = playerBone->world.translate;
-		auto playerDir = (playerPos - projPos);
+		RE::NiAVObject* playerBone = nullptr;
+		if (AnArchos->GetNodeByName("NPC Neck [Neck]")) playerBone = AnArchos->GetNodeByName("NPC Neck [Neck]");
+		else if (AnArchos->GetNodeByName("NPC Pelvis [Pelv]")) playerBone = AnArchos->GetNodeByName("NPC Pelvis [Pelv]");
+		else if (AnArchos->GetNodeByName("NPC Spine [Spn0]")) playerBone = AnArchos->GetNodeByName("NPC Spine [Spn0]");
+		else if (AnArchos->GetNodeByName("NPC Spine1 [Spn1]")) playerBone = AnArchos->GetNodeByName("NPC Spine1 [Spn1]");
+		if (!playerBone) return;
+
+		const auto& projPos = a_this->data.location;
+		const auto playerPos = playerBone->world.translate;
+		const auto playerDir = (playerPos - projPos);
 	//		spdlog::debug("incoming projectile offset: {}, {}, {}", offsetVec.x, offsetVec.y, offsetVec.z);
-		float offset = playerDir.Length();
-		float offsetAngle = acos(velocity.Dot(playerDir) / speed / offset);			//	cos(offsetAngle) = (velocity . playerDir) / (speed * offset); 	/|	/: offset, |: speed
+		const float offset = playerDir.Length();
+		const float offsetAngle = acos(velocity.Dot(playerDir) / speed / offset);			//	cos(offsetAngle) = (velocity . playerDir) / (speed * offset); 	/|	/: offset, |: speed
 		if (static_cast<int>(livingTime * 10) % 2 < 1)	spdlog::debug("incoming projectile offset angle: {}", offsetAngle / 0.0175f);
 
 		if (offsetAngle >= Config::projDirectionOffset) {
@@ -65,8 +73,8 @@ void ProjectileHook::directionCheck(const RE::Projectile* a_this)
 			return;
 		}
 
-		float distance = playerPos.GetDistance(projPos);
-		float timeToHit = distance / speed;
+		const float distance = playerPos.GetDistance(projPos);
+		const float timeToHit = distance / speed;
 		if (distance <= 60 || timeToHit < 0.02f) {projPassed = true; return;}		// return before the hit.
 		if (timeToHit <= Config::TimingDodgeWin) {
 			if (timeToHit <= Config::PerfectDodgeWin) {
