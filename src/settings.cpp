@@ -58,7 +58,7 @@ void Config::CheckConfig()
 	ReadStringSetting(ini, "Main", 	"sRingOf9RealmsEID", 	RingOf9RealmsEID);
 	ReadStringSetting(ini, "Main", 	"sRShiftingPerkEID", 	RShiftingPerkEID);
 	ReadStringSetting(ini, "Main", 	"sRShiftingSpellEID", 	RShiftingSpellEID);
-	ReadStringSetting(ini, "Main",	"fMagicModESP",			MagicModESP);
+	ReadStringSetting(ini, "Main",	"sMagicModESP",			MagicModESP);
 
 	ReadIntSetting   (ini, "Main", 	"iBuffSpellFormID",		BuffSpellFormID);
 
