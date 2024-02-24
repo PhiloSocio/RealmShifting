@@ -69,7 +69,7 @@ SKSEPluginLoad(const SKSE::LoadInterface *skse) {
 }
 /**/
 SKSEPluginInfo(
-    .Version = REL::Version{ 1, 1, 1, 0 },
+    .Version = REL::Version{ 1, 1, 2, 0 },
     .Name = "RealmShifting"sv,
     .Author = "AnArchos"sv,
     .SupportEmail = "patreon.com/AnArchos"sv,
