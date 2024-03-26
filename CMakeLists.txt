@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 # Set your project name. This will be the name of your SKSE .dll file.
-project(RealmShifting VERSION 0.0.1 LANGUAGES CXX)
+project(RealmShifting VERSION 1.1.3 LANGUAGES CXX)
 
 #
 
